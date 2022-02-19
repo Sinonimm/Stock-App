@@ -29,7 +29,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gny-kr-QqT">
-                                <rect key="frame" x="0.0" y="515" width="414" height="221"/>
+                                <rect key="frame" x="0.0" y="515.33333333333337" width="414" height="220.66666666666663"/>
                             </pickerView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="xH7-5c-bCy">
                                 <rect key="frame" x="197" y="358" width="20" height="20"/>
