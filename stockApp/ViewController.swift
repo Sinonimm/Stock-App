@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ViewController: UIViewController {
     
 
     @IBOutlet weak var companyPickerView: UIPickerView!
@@ -22,22 +22,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                                                "Google":"goog",
                                                "Amazon":"amzn",
                                                "Facebook":"fb",]
-    
-    
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.companies.keys.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Array(self.companies.keys)[row]
-    }
-    
-    
     
     private func parseQuote(data: Data){
         do{
@@ -70,9 +54,14 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         self.PriceChangeLabel.text = "\(priceChange)"
     }
     
-    
     private func requestQuote(for symbol: String){
-        let url = URL(string: "https://cloud.iexapis.com/stable/stock/\(symbol)/quote?&token=pk_4d16f034d7a7446a98901a1257caee09")!
+        
+        guard let url = URL(string: "https://cloud.iexapis.com/stable/stock/\(symbol)/quote?&token=pk_4d16f034d7a7446a98901a1257caee09")
+                
+        else {
+            print("wrong URL")
+            return
+        }
         
         let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             guard
@@ -80,21 +69,13 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 (response as? HTTPURLResponse)?.statusCode == 200,
                 let data = data
             else{
-                print(error)
+                print(error?.localizedDescription ?? "wrong URLSession dataTask")
                 return
             }
             self.parseQuote(data: data)
         }
         
         dataTask.resume()
-    }
-    
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.activityIndicator.startAnimating()
-        
-        let selectedSymbol = Array(self.companies.values)[row]
-        self.requestQuote(for: selectedSymbol)
     }
     
     private func requestQuoteUpdate(){
@@ -110,8 +91,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -122,7 +101,31 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         self.requestQuoteUpdate()
     }
-
-
 }
 
+extension ViewController: UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.companies.keys.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Array(self.companies.keys)[row]
+    }
+    
+}
+
+extension ViewController: UIPickerViewDelegate {
+    
+        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.activityIndicator.startAnimating()
+    
+        let selectedSymbol = Array(self.companies.values)[row]
+        self.requestQuote(for: selectedSymbol)
+    }
+    
+}
