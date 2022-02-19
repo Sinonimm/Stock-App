@@ -90,6 +90,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     private func requestQuoteUpdate(){
         self.activityIndicator.startAnimating()
+        self.companyNameLabel.text = "-"
         
         let selectedRow = self.companyPickerView.selectedRow(inComponent: 0)
         let selctedSymbol = Array(self.companies.values)[selectedRow]
