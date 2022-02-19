@@ -99,9 +99,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="PriceChangeLabel" destination="0ZA-X4-d2M" id="Owi-4v-g42"/>
+                        <outlet property="PriceLabel" destination="kiZ-cc-zBB" id="Trt-sj-WTu"/>
                         <outlet property="activityIndicator" destination="xH7-5c-bCy" id="v4b-Xc-tsk"/>
                         <outlet property="companyNameLabel" destination="2U9-Uh-VzQ" id="6Y4-f8-RvM"/>
                         <outlet property="companyPickerView" destination="gny-kr-QqT" id="IST-me-sRC"/>
+                        <outlet property="companySymbolLabel" destination="CyS-1j-SNU" id="C9F-p4-bxY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
