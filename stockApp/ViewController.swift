@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.companyNameLabel.text = "Tinkoff"
+        self.companyNameLabel.text = "Tinkoff FinTech"
     }
 
 
